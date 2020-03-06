@@ -15,49 +15,72 @@ const handler: (e: Event) => void = e => {
   };
 
   switch (e.which) {
-    case 39:
-      if (!(e.target instanceof HTMLInputElement)) {
+    case 39: {
+      const doNavi = () => {
         e.preventDefault();
-        const next = eventTarget.closest('td')?.nextSibling as HTMLElement | null;
-        if (!next) break;
+        let target: HTMLElement | null = null;
+        const nextSameTd = eventTarget.nextSibling as HTMLElement | null;
+        if (nextSameTd) {
+          target = nextSameTd;
+        } else {
+          const nextTd = eventTarget.closest('td')?.nextSibling as HTMLElement | null;
+          if (!nextTd) return;
 
-        const target: HTMLElement | null = next.querySelector(nodeList);
-        doFocus(target);
+          const list: NodeListOf<HTMLElement> = nextTd.querySelectorAll(nodeList);
 
+          if (list.length) {
+            // eslint-disable-next-line prefer-destructuring
+            target = list[0];
+          }
+        }
+        if (target) {
+          doFocus(target);
+        }
+      };
+
+      if (!(e.target instanceof HTMLInputElement)) {
+        doNavi();
         break;
       }
 
       if (e.target.selectionStart === e.target.value.length) {
-        e.preventDefault();
-        const next = eventTarget.closest('td')?.nextSibling as HTMLElement | null;
-        if (!next) break;
-
-        const target: HTMLElement | null = next.querySelector(nodeList);
-        doFocus(target);
+        doNavi();
       }
       break;
-    case 37:
-      if (!(e.target instanceof HTMLInputElement)) {
+    }
+    case 37: {
+      const doNavi = () => {
         e.preventDefault();
-        const next = eventTarget.closest('td')?.previousSibling as HTMLElement | null;
-        if (!next) break;
+        let target: HTMLElement | null = null;
+        const prevSameTd = eventTarget.previousSibling as HTMLElement | null;
+        if (prevSameTd) {
+          target = prevSameTd;
+        } else {
+          const prevTd = eventTarget.closest('td')?.previousSibling as HTMLElement | null;
+          if (!prevTd) return;
 
-        const target: HTMLElement | null = next.querySelector(nodeList);
-        doFocus(target);
+          const list: NodeListOf<HTMLElement> = prevTd.querySelectorAll(nodeList);
+          if (list.length) {
+            target = list[list.length - 1];
+          }
+        }
 
+        if (target) {
+          doFocus(target);
+        }
+      };
+
+      if (!(e.target instanceof HTMLInputElement)) {
+        doNavi();
         break;
       }
 
       if (e.target.selectionStart === 0) {
-        e.preventDefault();
-        const prev = eventTarget.closest('td')?.previousSibling as HTMLElement | null;
-        if (!prev) break;
-
-        const target: HTMLElement | null = prev.querySelector(nodeList);
-        doFocus(target);
+        doNavi();
       }
 
       break;
+    }
     case 40: {
       e.preventDefault();
       const next = eventTarget.closest('tr')?.nextSibling as HTMLElement | null;

@@ -7,17 +7,20 @@
           <th>A</th>
           <th>B</th>
           <th>C</th>
+          <th>D</th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <th>1</th>
           <td><input type="text" style="width:50px" /></td>
+          <td><button>1</button><button>2</button></td>
+          <td><button>1</button><button>2</button></td>
           <td><input type="text" style="width:50px" /></td>
-          <td><button>Test</button></td>
         </tr>
         <tr>
           <th>2</th>
+          <td><input type="text" style="width:50px" /></td>
           <td><input type="text" style="width:50px" /></td>
           <td><input type="text" style="width:50px" /></td>
           <td><input type="text" style="width:50px" /></td>
@@ -27,12 +30,14 @@
           <td><input type="text" style="width:50px" /></td>
           <td><textarea></textarea></td>
           <td><input type="text" style="width:50px" /></td>
+          <td><input type="text" style="width:50px" /></td>
         </tr>
         <template v-if="hasTable">
           <tr>
             <th>4</th>
             <td><input type="text" style="width:50px" /></td>
-            <td><button></button></td>
+            <td><button>1</button><button>2</button></td>
+            <td><input type="text" style="width:50px" /></td>
             <td><input type="text" style="width:50px" /></td>
           </tr>
         </template>
