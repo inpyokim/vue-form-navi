@@ -1,6 +1,6 @@
 {
   "name": "vue-form-navi",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "main": "index.js",
   "description": "a vue directive for arrow key navigation",
   "author": {

@@ -23,7 +23,7 @@ const handler: (e: Event) => void = e => {
         if (nextSameTd) {
           target = nextSameTd;
         } else {
-          const nextTd = eventTarget.closest('td')?.nextSibling as HTMLElement | null;
+          const nextTd = eventTarget.closest('td, .td')?.nextSibling as HTMLElement | null;
           if (!nextTd) return;
 
           const list: NodeListOf<HTMLElement> = nextTd.querySelectorAll(nodeList);
@@ -56,7 +56,7 @@ const handler: (e: Event) => void = e => {
         if (prevSameTd) {
           target = prevSameTd;
         } else {
-          const prevTd = eventTarget.closest('td')?.previousSibling as HTMLElement | null;
+          const prevTd = eventTarget.closest('td, .td')?.previousSibling as HTMLElement | null;
           if (!prevTd) return;
 
           const list: NodeListOf<HTMLElement> = prevTd.querySelectorAll(nodeList);
@@ -83,8 +83,11 @@ const handler: (e: Event) => void = e => {
     }
     case 40: {
       e.preventDefault();
-      const next = eventTarget.closest('tr')?.nextSibling as HTMLElement | null;
-      const index = eventTarget.closest('td')?.cellIndex;
+      const next = eventTarget.closest('tr, .tr')?.nextSibling as HTMLElement | null;
+      const original = eventTarget.closest('td, .td');
+
+      const index = Array.prototype.slice.call(original?.parentElement?.children).indexOf(original);
+
       if (!index || !next) break;
       const nextTd = next.childNodes[index] as HTMLElement | null;
       if (!nextTd) break;
@@ -96,7 +99,9 @@ const handler: (e: Event) => void = e => {
     case 38: {
       e.preventDefault();
       const prev = eventTarget.closest('tr')?.previousSibling as HTMLElement | null;
-      const index = eventTarget.closest('td')?.cellIndex;
+      const original = eventTarget.closest('td, .td');
+
+      const index = Array.prototype.slice.call(original?.parentElement?.children).indexOf(original);
 
       if (!index || !prev) break;
       const prevTd = prev.childNodes[index] as HTMLElement | null;
